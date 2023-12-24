@@ -19,7 +19,7 @@ const smoothProgress = keyframes`
   100% { width: 100%; }
 `;
 
-const MintingSection = ({ isMinting, mintProgress, onMint }) => {
+const MintingSection = ({ isMinting, progress }) => {
   const theme = useTheme();
 
   const { config: conf } = usePrepareSendTransaction({
@@ -69,7 +69,7 @@ const MintingSection = ({ isMinting, mintProgress, onMint }) => {
 
           <LinearProgress
             variant="determinate"
-            value={50} // Make sure this value updates smoothly for a better animation
+            value={progress} // Make sure this value updates smoothly for a better animation
             sx={{
               width: '100%',
               height: '10px',
@@ -90,7 +90,7 @@ const MintingSection = ({ isMinting, mintProgress, onMint }) => {
               marginLeft: "200px"
             }}
           >
-            {50}%
+            {progress}%
           </Typography>
         </Box>
         <Box>

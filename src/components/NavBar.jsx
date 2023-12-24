@@ -47,12 +47,13 @@ const Navbar = ({ name, state }) => {
               component="div"
               sx={{
                 flexGrow: 1,
-                fontSize: '2.2rem',
+                fontSize: '2.4rem',
                 fontWeight: 'bold',
                 color: '#B0E0E6',
                 fontFamily: "'Roboto Condensed', sans-serif",
                 textShadow: '0 0 1px #ADD8E6, 0 1px 1px #ADD8E6',
                 letterSpacing: '2px',
+                marginLeft:'15px'
               }}
             >
               {name}
@@ -63,8 +64,8 @@ const Navbar = ({ name, state }) => {
                 key={text}
                 color="inherit"
                 sx={{
-                  fontSize: '1rem',
-                  margin: '0 12px',
+                  fontSize: '1.2rem',
+                  margin: '0 10px',
                   color: '#e3f2fd', // A lighter shade for the text
                   textShadow: '0 0 5px #819ca9, 0 0 10px #819ca9', // A subtle glow effect
                   transition: 'color 0.3s, text-shadow 0.3s', // Smooth transition for hover effect

@@ -4,9 +4,9 @@ import { AccessTime, Close, Language } from '@mui/icons-material';
 
 function LaunchPad() {
     return (
-        <Card sx={{ maxWidth: 345, background: 'linear-gradient(160deg, #333, #1a1a2e)' }}>
+        <Card sx={{ maxWidth: 360, background: 'linear-gradient(160deg, #333, #1a1a2e)', margin: '50px' ,height:'400px' }}>
             <CardContent>
-                <Typography gutterBottom variant="h5" component="div" sx={{ color: '#fff' }}>
+                <Typography gutterBottom variant="h5" component="div" sx={{ color: '#fff' , fontWeight:'bold' }}>
                     Launchpad
                 </Typography>
                 <Box
@@ -17,10 +17,11 @@ function LaunchPad() {
                         backgroundColor: 'rgba(0,0,0,0.5)',
                     }}
                     alt="Polygon Runes"
+                    src='src/assets/bg3.png'
 
                 />
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mt: 2 }}>
-                    <Typography variant="h6" color="purple">
+                    <Typography variant="h6" color="#B0E0E6">
                         $pook
                     </Typography>
                     <Box sx={{ display: 'flex', alignItems: 'center' }}>

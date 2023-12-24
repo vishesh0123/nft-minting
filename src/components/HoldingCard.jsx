@@ -4,7 +4,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
 
-const HoldingCard = ({ contractData }) => {
+const HoldingCard = ({ log }) => {
 
     return (
         <Box>
@@ -24,12 +24,17 @@ const HoldingCard = ({ contractData }) => {
                     0 0 48px 9px  #836FFF` // Enhanced glow on hover
                 },
                 marginTop: '25px',
-                height: '150px',
-                width: '230px'
+                height: '130px',
+                width: '280px'
             }}>
                 <CardContent>
-                    <Typography >
-                        {contractData}
+                    <Typography>
+                        ' data:,"p":"xrs- 20","op":"mint","tick":"pook"
+                        <br/>
+                        "amt":"1000"'
+                    </Typography>
+                    <Typography style={{ 'fontWeight': 'bold', marginTop: '10px' }} >
+                        {(new Date(log.timeStamp * 1000)).toLocaleDateString()} {log.transactionHash.substring(0, 8)}
                     </Typography>
                 </CardContent>
             </Card>

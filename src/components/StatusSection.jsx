@@ -34,7 +34,7 @@ const StatCard = ({ title, value }) => {
   );
 };
 
-const StatsSection = ({ holders }) => {
+const StatsSection = ({ state }) => {
   const theme = useTheme();
 
   const [minted, setMinted] = useState(0)
@@ -62,6 +62,7 @@ const StatsSection = ({ holders }) => {
     refetchProjects?.();
     setMinted(Number(data[0].result))
     setTotal(Number(data[1].result))
+    state(100 * Number(data[0].result) / Number(data[1].result))
   }, [isSuccess]);
 
   return (

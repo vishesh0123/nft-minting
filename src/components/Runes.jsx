@@ -14,16 +14,21 @@ import {
 } from '@mui/material';
 
 function CustomProgress({ value, max }) {
+  const theme = useTheme();
   const normalizedValue = (value / max) * 100;
   return (
-    <Box display="flex" alignItems="center">
+    <Box display="flex" alignItems="center" width="100%">
       <Box width="100%" mr={1}>
         <LinearProgress
           variant="determinate"
           value={normalizedValue}
           sx={{
-            '.css-1kjriw0-MuiLinearProgress-bar1': {
-              background: `linear-gradient(145deg, #836FFF, #30cfd0)`, // Gradient for the progress bar
+            height: '10px', // Increase height of progress bar
+            borderRadius: theme.shape.borderRadius, // Use border radius from theme
+            backgroundColor: theme.palette.grey[300], // Use theme color for background
+            '.MuiLinearProgress-bar': {
+              borderRadius: theme.shape.borderRadius, // Round the corners of the bar
+              backgroundColor: `linear-gradient(145deg, #836FFF, #30cfd0)`, // Use theme colors for gradient
             },
           }}
         />
@@ -38,24 +43,28 @@ function CustomProgress({ value, max }) {
 function Runes() {
   const theme = useTheme(); // Access the theme values
 
-  // Your data could be fetched or passed in as props.
+  // Adjust the theme here if needed for color combinations
+  const tableHeaderBgColor = theme.palette.primary.dark; // Darker shade for header
+  const tableHeaderTextColor = theme.palette.common.white;
+  const tableRowBgColor = theme.palette.primary.main; // Lighter shade for rows
+
   const data = [
     {
       name: 'POOK',
-      progress: 96.45,
+      progress: 100,
       totalSupply: 10240000000,
-      mintedPercent: '96.45%',
-      holders: 25516,
+      mintedPercent: '100%',
+      holders: 25515,
       deployBlock: 51268782,
     },
   ];
 
   return (
-    <Box sx={{ 'margin': '30px' }}>
-      <TableContainer component={Paper} sx={{ background: 'linear-gradient(145deg, #6a5acd, #1e90ff)' }}>
+    <Box sx={{ margin: '30px' }}>
+      <TableContainer component={Paper} elevation={4} sx={{ overflow: 'hidden', borderRadius: theme.shape.borderRadius }}>
         <Table aria-label="customized table">
-          <TableHead sx={{ background: 'black', color: 'white' }}>
-            <TableRow>
+          <TableHead>
+            <TableRow sx={{ background: 'linear-gradient(145deg, #836FFF, #30cfd0)', fontWeight: 'bold' }}>
               <TableCell>#</TableCell>
               <TableCell>Name</TableCell>
               <TableCell>Progress</TableCell>
@@ -67,25 +76,25 @@ function Runes() {
           </TableHead>
           <TableBody>
             {data.map((row, index) => (
-              <TableRow key={row.name}>
+              <TableRow key={row.name} sx={{ '&:nth-of-type(odd)': { background: 'linear-gradient(145deg, #836FFF, #30cfd0)' } }}>
                 <TableCell component="th" scope="row">{index + 1}</TableCell>
                 <TableCell>
-                  <Typography color="white">{row.name}</Typography>
+                  <Typography color="white" fontWeight="bold">{row.name}</Typography>
                 </TableCell>
                 <TableCell>
                   <CustomProgress value={row.progress} max={100} />
                 </TableCell>
                 <TableCell>
-                  <Typography color="white">{row.totalSupply.toLocaleString()}</Typography>
+                  <Typography color="white" fontWeight="bold">{row.totalSupply}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color="white">{row.mintedPercent}</Typography>
+                  <Typography color="white" fontWeight="bold">{row.mintedPercent}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color="white">{row.holders.toLocaleString()}</Typography>
+                  <Typography color="white" fontWeight="bold">{row.holders}</Typography>
                 </TableCell>
                 <TableCell>
-                  <Typography color="white">{row.deployBlock.toLocaleString()}</Typography>
+                  <Typography color="white" fontWeight="bold">{row.deployBlock}</Typography>
                 </TableCell>
               </TableRow>
             ))}

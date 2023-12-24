@@ -9,14 +9,15 @@ import Runes from './components/Runes'
 
 function App() {
   const [route, setRoute] = useState({ route: false, path: '' })
+  const [mintp ,setmintp] = useState(0.0)
 
   return (
     <>
       <Navbar name={config.name} state={setRoute} />
       {!route.route && <>
         <div style={{ 'display': 'flex', flexDirection: 'row', marginTop: '20px' }}>
-          <MintingSection />
-          <StatusSection />
+          <MintingSection progress={mintp} />
+          <StatusSection state={setmintp} />
 
         </div>
         <Holdings /></>}

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Typography, useTheme } from '@mui/material';
 import { usePublicClient } from 'wagmi'
 import config from '../../config';
-import { ethers, getAddress } from 'ethers';
+import { ethers } from 'ethers';
 import { useAccount } from 'wagmi'
 import HoldingCard from './HoldingCard';
 
@@ -11,38 +11,42 @@ import HoldingCard from './HoldingCard';
 
 function Holdings() {
     const theme = useTheme();
-    const provider = usePublicClient();
     const [logs, setLogs] = useState([]);
     const { address, isConnecting, isDisconnected } = useAccount()
 
     useEffect(() => {
         const fetchLogs = async () => {
-            // const normalizedAddress = getAddress(address).slice(2);
-            const normalizedAddress = getAddress("0x76A3a95a50F0a12e6E053c4b40a92C168Fc0e97b").slice(2);
+            const normalizedAddress = ethers.utils.getAddress(address).slice(2);
+            console.log(normalizedAddress);
+            const paddedAddress = '0x' + normalizedAddress.padStart(64, '0');
+            const apiKey = 'NUCCYDTQF3VWJ8YT5YRQ5PT52S6G14CK4H'; // Replace with your actual API key
+            const fromBlock = '51268782';
+            //   const toBlock = '6000000';
+            const contract = config.deployment;
+            const topic0 = '0xa9b52a0a385a0f4661bf0036806b0a6054494184a759463e02f802fdbf0254c7';
+            const topic1 = paddedAddress.toLowerCase()
 
-            // Pad the address to 32 bytes
-            const paddedAddress = normalizedAddress.padStart(64, '0'); // 64 hex characters = 32 bytes
-            console.log(paddedAddress);
-
-            const filter = {
-                address: config.deployment,
-                topics: ["0xa9b52a0a385a0f4661bf0036806b0a6054494184a759463e02f802fdbf0254c7", paddedAddress], // Filter by the event signature
-            };
+            const url = `https://api.polygonscan.com/api?module=logs&action=getLogs&fromBlock=${fromBlock}&address=${contract}&topic0=${topic0}&topic1=${topic1}&apikey=${apiKey}`;
 
             try {
-                const eventLogs = await provider.getLogs(filter);
-                console.log(eventLogs);
-                setLogs(eventLogs); // Update your state with the logs
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                console.log(data);
+                if (data.status && data.status === '1') {
+                    setLogs(data.result);
+                } else {
+                    throw new Error(`Error from PolygonScan: ${data.result}`);
+                }
             } catch (error) {
                 console.error('Error fetching logs:', error);
             }
         };
 
-
-        fetchLogs()
-        console.log("fetched logs");
-
-    }, [provider, address, isDisconnected]);
+        fetchLogs();
+    }, [isDisconnected]);
 
 
     return (
@@ -71,7 +75,7 @@ function Holdings() {
                         },
                     }}
                 >
-                    My Runes
+                    My Runes (Balance)
                 </Typography>
 
 
@@ -80,11 +84,11 @@ function Holdings() {
                 sx={{
                     display: 'flex',
                     flexWrap: 'wrap',
-                    gap: theme.spacing(1), // Adjust the spacing as needed
+                    // gap: theme.spacing(1), // Adjust the spacing as needed
                     justifyContent: 'center',
                     // Add padding to the container to prevent cards from touching the edges
                     padding: theme.spacing(2),
-                    maxWidth: '1000px'
+                    maxWidth: '1300px'
                 }}
             >
                 {logs.length !== 0 && logs.map((log, index) => (
@@ -99,7 +103,7 @@ function Holdings() {
                             boxSizing: 'border-box',
                         }}
                     >
-                        <HoldingCard log={log} /> {/* Pass log or other necessary props */}
+                        <HoldingCard key={index} log={log} /> {/* Pass log or other necessary props */}
                     </Box>
                 ))}
             </Box>
