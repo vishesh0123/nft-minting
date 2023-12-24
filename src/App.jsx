@@ -9,7 +9,7 @@ import Runes from './components/Runes'
 
 function App() {
   const [route, setRoute] = useState({ route: false, path: '' })
-  const [mintp ,setmintp] = useState(0.0)
+  const [mintp, setmintp] = useState(0.0)
 
   return (
     <>
@@ -22,7 +22,7 @@ function App() {
         </div>
         <Holdings /></>}
 
-      {route.route && (route.route && route.path === 'Launchpad' ? <LaunchPad /> : <Runes />)}
+      {route.route && (route.route && route.path === 'Launchpad' ? <LaunchPad /> : <Runes state={setRoute} />)}
 
 
 

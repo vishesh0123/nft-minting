@@ -51,33 +51,49 @@ function Holdings() {
 
     return (
         <>
-            <Box
-                sx={{
-                    p: theme.spacing(2),
-                    display: 'inline-block', // So the box wraps around the text tightly
-                    border: `2px solid ${theme.palette.primary.main}`, // Solid border using the primary color
-                    boxShadow: '0px 0px 12px rgba(0, 0, 0, 0.5)', // Shadow for depth
-                    background: 'linear-gradient(145deg, #6a5acd, #1e90ff)', // Gradient background
-                    '&:hover': {
-                        animation: 'jelly 0.5s', // Bouncy animation on hover
-                    },
-                    margin: '50px'
-                }}
-            >
-                <Typography
+            <Box sx={{ 'display': 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
+                <Box
                     sx={{
-                        color: 'white', // White text color
-                        fontWeight: 'bold', // Bold text
-                        textShadow: '0px 0px 6px rgba(0, 0, 0, 0.3)', // Text shadow for readability
-                        transition: 'transform 0.5s', // Smooth transition for the hover effect
+                        p: theme.spacing(2),
+                        display: 'inline-block', // So the box wraps around the text tightly
+                        border: `2px solid ${theme.palette.primary.main}`, // Solid border using the primary color
+                        boxShadow: '0px 0px 12px rgba(0, 0, 0, 0.5)', // Shadow for depth
+                        background: 'linear-gradient(145deg, #6a5acd, #1e90ff)', // Gradient background
                         '&:hover': {
-                            transform: 'scale(1.05)', // Slightly increase size on hover
+                            animation: 'jelly 0.5s', // Bouncy animation on hover
                         },
+                        margin: '50px'
                     }}
                 >
-                    My Runes (Balance)
-                </Typography>
+                    <Typography
+                        sx={{
+                            color: 'white', // White text color
+                            fontWeight: 'bold', // Bold text
+                            textShadow: '0px 0px 6px rgba(0, 0, 0, 0.3)', // Text shadow for readability
+                            transition: 'transform 0.5s', // Smooth transition for the hover effect
+                            '&:hover': {
+                                transform: 'scale(1.05)', // Slightly increase size on hover
+                            },
+                        }}
+                    >
+                        My Runes
+                    </Typography>
 
+
+
+                </Box>
+                <Box>
+                    <Typography sx={{
+                        fontSize: '1.2rem',
+                        fontWeight: 'bold',
+                        color: '#B0E0E6',
+                        textShadow: '0px 2px 4px rgba(0, 0, 0, 0.5)',
+                        letterSpacing: '0.5px',
+                        borderRadius: '5px',
+                    }}>
+                        Balance: {logs.length}
+                    </Typography>
+                </Box>
 
             </Box>
             <Box

@@ -19,9 +19,10 @@ const StatCard = ({ title, value }) => {
         '&:hover': {
           boxShadow: `0 6px 20px ${theme.palette.primary.dark}`, // Subtle hover effect
         },
-        width: '200px',
+        width: '400px',
         cursor: 'pointer', // Indicate it's interactive
         transition: 'box-shadow 0.3s ease', // Smooth transition for the hover effect
+        height: '100px'
       }}
     >
       <Typography variant="h6" component="div" gutterBottom sx={{ fontWeight: 'bold' }}>

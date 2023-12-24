@@ -54,11 +54,11 @@ const CustomCard = () => {
                     0 0 48px 9px  #836FFF` // Enhanced glow on hover
         },
         marginTop: '25px',
-        height: '150px',
-        width: '340px'
+        height: '200px',
+        width: '500px'
       }}>
         <CardContent>
-          <Typography >
+          <Typography align='center' >
             {contractData}
           </Typography>
         </CardContent>

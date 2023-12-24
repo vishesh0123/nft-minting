@@ -11,6 +11,7 @@ import {
   Box,
   Typography,
   useTheme,
+  Button,
 } from '@mui/material';
 import config from '../../config';
 
@@ -42,7 +43,7 @@ function CustomProgress({ value, max }) {
   );
 }
 
-function Runes() {
+function Runes({ state }) {
   const theme = useTheme(); // Access the theme values
 
   // Adjust the theme here if needed for color combinations
@@ -95,8 +96,13 @@ function Runes() {
                 <TableCell>
                   <Typography color="white" fontWeight="bold">{row.holders}</Typography>
                 </TableCell>
-                <TableCell>
+                <TableCell sx={{ display: 'flex', justifyContent: 'space-around', alignItems: 'center' }}>
                   <Typography color="white" fontWeight="bold">{row.deployBlock}</Typography>
+                  <Button onClick={() => { state({ route: false }) }}>
+                    <Typography padding={1} color='white' fontWeight='bold' border='2px solid white' borderRadius='2px'>
+                      mint
+                    </Typography>
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

@@ -60,7 +60,7 @@ const MintingSection = ({ isMinting, progress }) => {
   return (
     <Box sx={{
       animation: `${fadeIn} 1s ease-out forwards`,
-      display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center'
+      display: 'flex', flexDirection: 'column', justifyContent: 'space-between', alignItems: 'center'
     }}>
       <TokenName token={config.token} tokendesc={config.tokendesc} />
       <CustomCard sx={{
@@ -98,7 +98,7 @@ const MintingSection = ({ isMinting, progress }) => {
             value={progress} // Make sure this value updates smoothly for a better animation
             sx={{
               width: '100%',
-              height: '10px',
+              height: '12px',
               animation: `${smoothProgress} 2s ease-out forwards`,
               '.MuiLinearProgress-bar': {
                 background: 'linear-gradient(145deg, #836FFF, #30cfd0)',
@@ -135,6 +135,8 @@ const MintingSection = ({ isMinting, progress }) => {
                 '&:hover': {
                   background: `linear-gradient(145deg, #836FFF, #30cfd0)`,
                 },
+                width:'150px',
+                height:'40px'
               }}
               onClick={handleMint}
             >
