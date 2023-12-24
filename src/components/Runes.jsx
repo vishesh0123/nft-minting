@@ -12,6 +12,8 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
+import config from '../../config';
+
 
 function CustomProgress({ value, max }) {
   const theme = useTheme();
@@ -50,7 +52,7 @@ function Runes() {
 
   const data = [
     {
-      name: 'POOK',
+      name: config.token,
       progress: 100,
       totalSupply: 10240000000,
       mintedPercent: '100%',
