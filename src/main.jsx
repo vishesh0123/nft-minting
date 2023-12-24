@@ -4,7 +4,7 @@ import App from './App.jsx'
 import './index.css'
 import { createWeb3Modal, defaultWagmiConfig } from '@web3modal/wagmi/react'
 import { WagmiConfig } from 'wagmi'
-import { polygon } from 'viem/chains'
+import { polygon , mainnet , bsc} from 'viem/chains'
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@mui/material/styles';
 
@@ -28,7 +28,7 @@ const metadata = {
   icons: ['https://avatars.githubusercontent.com/u/37784886']
 }
 
-const chains = [polygon]
+const chains = [polygon,mainnet,bsc]
 const wagmiConfig = defaultWagmiConfig({ chains, projectId, metadata })
 
 createWeb3Modal({ wagmiConfig, projectId, chains })
