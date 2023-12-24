@@ -1,11 +1,20 @@
-import React from 'react';
-import { Box, Typography, Button, CircularProgress, LinearProgress, useTheme } from '@mui/material';
+import React, { useState } from 'react';
+import {
+  Box,
+  Typography,
+  Button,
+  CircularProgress,
+  LinearProgress,
+  Snackbar,
+  Alert,
+  useTheme,
+} from '@mui/material';
 import CustomCard from './CustomCard';
 import TokenName from './TokenName';
 import { keyframes } from '@emotion/react';
 import config from '../../config';
-import { useSendTransaction, usePrepareSendTransaction } from 'wagmi'
-import { parseEther } from 'viem';
+import { useSendTransaction, usePrepareSendTransaction } from 'wagmi';
+import { parseEther } from 'ethers/lib/utils'; // Ensure to import parseEther from ethers
 
 // Define keyframe animations
 const fadeIn = keyframes`
@@ -13,7 +22,6 @@ const fadeIn = keyframes`
   to { opacity: 1; transform: translateY(0); }
 `;
 
-// Adjusted progress animation for smoother transition
 const smoothProgress = keyframes`
   0% { width: 0%; }
   100% { width: 100%; }
@@ -21,14 +29,33 @@ const smoothProgress = keyframes`
 
 const MintingSection = ({ isMinting, progress }) => {
   const theme = useTheme();
+  const [snackbarOpen, setSnackbarOpen] = useState(false); // State to manage Snackbar visibility
 
+  // Prepare transaction config
   const { config: conf } = usePrepareSendTransaction({
     value: parseEther('0.1'),
     to: config.deployment,
-  })
+  });
 
-  const { data, isLoading, isSuccess, sendTransaction } =
-    useSendTransaction(conf)
+  // Use wagmi's useSendTransaction hook
+  const { data, isLoading, isSuccess, sendTransaction } = useSendTransaction(conf);
+
+  // Handle minting process
+  const handleMint = () => {
+    if (progress >= 100) {
+      setSnackbarOpen(true); // Open the Snackbar instead of using alert
+      return; // Stop further execution if progress is 100%
+    }
+    sendTransaction?.(); // Proceed with the transaction if progress is under 100%
+  };
+
+  // Close Snackbar
+  const handleCloseSnackbar = (event, reason) => {
+    if (reason === 'clickaway') {
+      return; // Don't close Snackbar if clicked outside
+    }
+    setSnackbarOpen(false); // Close Snackbar
+  };
 
   return (
     <Box sx={{
@@ -51,9 +78,8 @@ const MintingSection = ({ isMinting, progress }) => {
         width: '500px',
         height: '1px',
         margin: '100px',
-        // animation: `${fadeIn} 1s ease-out 0.5s forwards`,
       }}>
-        <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', gap: 1, flexDirection: 'column' }}>
+       <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', gap: 1, flexDirection: 'column' }}>
           <Typography
             sx={{
               fontSize: '1.2rem',
@@ -74,7 +100,7 @@ const MintingSection = ({ isMinting, progress }) => {
               width: '100%',
               height: '10px',
               animation: `${smoothProgress} 2s ease-out forwards`,
-              '.css-1kjriw0-MuiLinearProgress-bar1': {
+              '.MuiLinearProgress-bar': {
                 background: 'linear-gradient(145deg, #836FFF, #30cfd0)',
               },
             }}
@@ -109,16 +135,21 @@ const MintingSection = ({ isMinting, progress }) => {
                 '&:hover': {
                   background: `linear-gradient(145deg, #836FFF, #30cfd0)`,
                 },
-                // animation: `${fadeIn} 1s ease-out 1s forwards`,
               }}
-              onClick={() => sendTransaction?.()}
-
+              onClick={handleMint}
             >
               <Typography>Mint</Typography>
             </Button>
           )}
         </Box>
       </Box>
+
+      {/* Snackbar for animated alert */}
+      <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={handleCloseSnackbar}>
+        <Alert onClose={handleCloseSnackbar} severity="warning" sx={{ width: '100%' }}>
+          Max limit reached
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };
