@@ -1,5 +1,6 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button, CssBaseline, useScrollTrigger, Slide, Box } from '@mui/material';
+import { Snackbar, Alert } from '@mui/material';
 
 function HideOnScroll(props) {
   const { children } = props;
@@ -13,6 +14,25 @@ function HideOnScroll(props) {
 }
 
 const Navbar = ({ name }) => {
+  const [open, setOpen] = React.useState(false);
+  const [message, setMessage] = React.useState('');
+
+  const handleClick = (text) => {
+    if (['Marketplace', 'Bridge', 'Defi'].includes(text)) {
+      setMessage(`${text} is coming soon!`);
+      setOpen(true);
+    }
+    // Add more logic here if needed for other buttons
+  };
+
+  // Closes the snackbar
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
   return (
     <>
       <CssBaseline />
@@ -36,7 +56,7 @@ const Navbar = ({ name }) => {
               {name}
             </Typography>
             {/* Navigation Links with custom styles and hover effects */}
-            {['Runes', 'Marketplace', 'Launchpad', 'Bridge','Defi'].map((text) => (
+            {['Runes', 'Marketplace', 'Launchpad', 'Bridge', 'Defi'].map((text) => (
               <Button
                 key={text}
                 color="inherit"
@@ -50,11 +70,20 @@ const Navbar = ({ name }) => {
                     color: '#bbdefb', // Color changes on hover
                     textShadow: '0 0 10px #bbdefb, 0 0 20px #bbdefb', // Enhanced glow effect on hover
                   },
+
                 }}
+                onClick={() => handleClick(text)}
               >
                 {text}
               </Button>
             ))}
+
+            {/* Snackbar for displaying the coming soon message */}
+            <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+              <Alert onClose={handleClose} severity="info" sx={{ width: '100%' }}>
+                {message}
+              </Alert>
+            </Snackbar>
 
             {/* Custom wallet button */}
             {/* Ensure this button has styles to match the rest of your navbar */}

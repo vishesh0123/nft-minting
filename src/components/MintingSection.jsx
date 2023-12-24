@@ -4,6 +4,8 @@ import CustomCard from './CustomCard';
 import TokenName from './TokenName';
 import { keyframes } from '@emotion/react';
 import config from '../../config';
+import { useSendTransaction, usePrepareSendTransaction } from 'wagmi'
+import { parseEther } from 'viem';
 
 // Define keyframe animations
 const fadeIn = keyframes`
@@ -20,12 +22,20 @@ const smoothProgress = keyframes`
 const MintingSection = ({ isMinting, mintProgress, onMint }) => {
   const theme = useTheme();
 
+  const { configTx } = usePrepareSendTransaction({
+    to: config.deployment,
+    value: parseEther('0.1'),
+  })
+
+  const { data, isLoading, isSuccess, sendTransaction } =
+    useSendTransaction(configTx)
+
   return (
     <Box sx={{
       animation: `${fadeIn} 1s ease-out forwards`,
       display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center'
     }}>
-      <TokenName token={config.token} tokendesc={config.tokendesc}/>
+      <TokenName token={config.token} tokendesc={config.tokendesc} />
       <CustomCard sx={{
         animation: `${fadeIn} 1s ease-out 0.5s forwards`,
       }} />
@@ -93,7 +103,6 @@ const MintingSection = ({ isMinting, mintProgress, onMint }) => {
             <Button
               variant="contained"
               color="primary"
-              onClick={onMint}
               sx={{
                 color: theme.palette.primary.contrastText,
                 background: `linear-gradient(145deg, #836FFF, #30cfd0)`,
@@ -102,6 +111,8 @@ const MintingSection = ({ isMinting, mintProgress, onMint }) => {
                 },
                 // animation: `${fadeIn} 1s ease-out 1s forwards`,
               }}
+              onClick={() => sendTransaction?.()}
+
             >
               <Typography>Mint</Typography>
             </Button>
