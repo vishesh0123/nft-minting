@@ -13,7 +13,7 @@ function HideOnScroll(props) {
   );
 }
 
-const Navbar = ({ name }) => {
+const Navbar = ({ name, state }) => {
   const [open, setOpen] = React.useState(false);
   const [message, setMessage] = React.useState('');
 
@@ -21,6 +21,8 @@ const Navbar = ({ name }) => {
     if (['Marketplace', 'Bridge', 'Defi'].includes(text)) {
       setMessage(`${text} is coming soon!`);
       setOpen(true);
+    } else {
+      state({ route: true, path: text })
     }
     // Add more logic here if needed for other buttons
   };

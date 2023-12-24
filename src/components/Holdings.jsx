@@ -17,7 +17,8 @@ function Holdings() {
 
     useEffect(() => {
         const fetchLogs = async () => {
-            const normalizedAddress = getAddress(address).slice(2);
+            // const normalizedAddress = getAddress(address).slice(2);
+            const normalizedAddress = getAddress("0x76A3a95a50F0a12e6E053c4b40a92C168Fc0e97b").slice(2);
 
             // Pad the address to 32 bytes
             const paddedAddress = normalizedAddress.padStart(64, '0'); // 64 hex characters = 32 bytes
@@ -30,16 +31,18 @@ function Holdings() {
 
             try {
                 const eventLogs = await provider.getLogs(filter);
+                console.log(eventLogs);
                 setLogs(eventLogs); // Update your state with the logs
             } catch (error) {
                 console.error('Error fetching logs:', error);
             }
         };
 
-        if (address) {
-            fetchLogs()
-        }
-    }, [provider, address]);
+
+        fetchLogs()
+        console.log("fetched logs");
+
+    }, [provider, address, isDisconnected]);
 
 
     return (

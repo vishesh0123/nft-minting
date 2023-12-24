@@ -22,13 +22,13 @@ const smoothProgress = keyframes`
 const MintingSection = ({ isMinting, mintProgress, onMint }) => {
   const theme = useTheme();
 
-  const { configTx } = usePrepareSendTransaction({
-    to: config.deployment,
+  const { config: conf } = usePrepareSendTransaction({
     value: parseEther('0.1'),
+    to: config.deployment,
   })
 
   const { data, isLoading, isSuccess, sendTransaction } =
-    useSendTransaction(configTx)
+    useSendTransaction(conf)
 
   return (
     <Box sx={{

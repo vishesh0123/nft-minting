@@ -81,7 +81,7 @@ const StatsSection = ({ holders }) => {
         // background: theme.palette.background.paper, // Adjust this color to fit your theme
       }}
     >
-      <StatCard title="Holders" value={25000} />
+      <StatCard title="Holders" value={25837} />
       <StatCard title="Minted" value={minted} />
       <StatCard title="Total Supply" value={total} />
     </Box>
