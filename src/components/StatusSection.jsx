@@ -1,30 +1,11 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Box, Typography, Paper, useTheme } from '@mui/material';
 import config from '../../config';
-import { useContractRead } from 'wagmi'
 import abi from '../abi'
-import { useWeb3Modal } from '@web3modal/wagmi/react'
+import { useContractReads } from 'wagmi'
 
 const StatCard = ({ title, value }) => {
   const theme = useTheme();
-
-  const {
-    data,
-    isError,
-    isLoading,
-    isSuccess,
-    refetch: refetchProjects,
-  } = useContractRead({
-    address: config.deployment,
-    abi: abi,
-    functionName: "_inscription",
-    onSuccess(data) {
-      console.log(data);
-    },
-    onerror(error) {
-      console.log(error);
-    },
-  });
 
   return (
     <Paper
@@ -53,8 +34,35 @@ const StatCard = ({ title, value }) => {
   );
 };
 
-const StatsSection = ({ holders, minted, totalSupply }) => {
+const StatsSection = ({ holders }) => {
   const theme = useTheme();
+
+  const [minted, setMinted] = useState(0)
+  const [total, setTotal] = useState(0)
+
+  const wagmigotchiContract = {
+    address: config.deployment,
+    abi: abi,
+  }
+
+  const { data, isError, isLoading, isSuccess, refetch: refetchProjects } = useContractReads({
+    contracts: [
+      {
+        ...wagmigotchiContract,
+        functionName: 'counter',
+      },
+      {
+        ...wagmigotchiContract,
+        functionName: 'MAX_COUNT',
+      },
+    ],
+  })
+
+  useEffect(() => {
+    refetchProjects?.();
+    setMinted(Number(data[0].result))
+    setTotal(Number(data[1].result))
+  }, [isSuccess]);
 
   return (
     <Box
@@ -73,9 +81,9 @@ const StatsSection = ({ holders, minted, totalSupply }) => {
         // background: theme.palette.background.paper, // Adjust this color to fit your theme
       }}
     >
-      <StatCard title="Holders" value={holders} />
+      <StatCard title="Holders" value={25000} />
       <StatCard title="Minted" value={minted} />
-      <StatCard title="Total Supply" value={totalSupply} />
+      <StatCard title="Total Supply" value={total} />
     </Box>
   );
 };

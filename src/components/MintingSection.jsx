@@ -11,14 +11,10 @@ const fadeIn = keyframes`
   to { opacity: 1; transform: translateY(0); }
 `;
 
-const progressAnimation = keyframes`
+// Adjusted progress animation for smoother transition
+const smoothProgress = keyframes`
   0% { width: 0%; }
   100% { width: 100%; }
-`;
-
-const fadeInAndRise = keyframes`
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
 `;
 
 const MintingSection = ({ isMinting, mintProgress, onMint }) => {
@@ -26,12 +22,12 @@ const MintingSection = ({ isMinting, mintProgress, onMint }) => {
 
   return (
     <Box sx={{
-      animation: `${fadeIn} 1s ease-out forwards`, // Applies the fade-in animation to the entire section
-      'display': 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center'
+      animation: `${fadeIn} 1s ease-out forwards`,
+      display: 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center'
     }}>
       <TokenName token={config.token} tokendesc={config.tokendesc}/>
       <CustomCard sx={{
-        animation: `${fadeInAndRise} 1s ease-out 0.5s forwards`, // Apply the same animation to the card
+        animation: `${fadeIn} 1s ease-out 0.5s forwards`,
       }} />
       <Box sx={{
         padding: 4,
@@ -45,17 +41,17 @@ const MintingSection = ({ isMinting, mintProgress, onMint }) => {
         width: '500px',
         height: '1px',
         margin: '100px',
-        animation: `${fadeIn} 1s ease-out 0.5s forwards`, // Delays the animation start
+        // animation: `${fadeIn} 1s ease-out 0.5s forwards`,
       }}>
         <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', gap: 1, flexDirection: 'column' }}>
           <Typography
             sx={{
-              fontSize: '1.2rem', // Slightly larger text for emphasis
-              fontWeight: 'bold', // Make it bold to stand out more
-              color: '#B0E0E6', // A light shade that should stand out against darker backgrounds
-              textShadow: '0px 2px 4px rgba(0, 0, 0, 0.5)', // Text shadow for depth
-              letterSpacing: '0.5px', // Adjust letter spacing for better readability
-              borderRadius: '5px', // Slightly rounded corners for the background
+              fontSize: '1.2rem',
+              fontWeight: 'bold',
+              color: '#B0E0E6',
+              textShadow: '0px 2px 4px rgba(0, 0, 0, 0.5)',
+              letterSpacing: '0.5px',
+              borderRadius: '5px',
             }}
           >
             POOK &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEE: 0.1 MATIC
@@ -63,11 +59,11 @@ const MintingSection = ({ isMinting, mintProgress, onMint }) => {
 
           <LinearProgress
             variant="determinate"
-            value={50} // Assuming mintProgress is a state variable that updates during minting
+            value={50} // Make sure this value updates smoothly for a better animation
             sx={{
               width: '100%',
               height: '10px',
-              animation: `${progressAnimation} 2s ease-out forwards`, // Applies the width animation to the progress bar
+              animation: `${smoothProgress} 2s ease-out forwards`,
               '.css-1kjriw0-MuiLinearProgress-bar1': {
                 background: 'linear-gradient(145deg, #836FFF, #30cfd0)',
               },
@@ -75,16 +71,16 @@ const MintingSection = ({ isMinting, mintProgress, onMint }) => {
           />
           <Typography
             sx={{
-              fontSize: '1.2rem', // Slightly larger text for emphasis
-              fontWeight: 'bold', // Make it bold to stand out more
-              color: '#B0E0E6', // A light shade that should stand out against darker backgrounds
-              textShadow: '0px 2px 4px rgba(0, 0, 0, 0.5)', // Text shadow for depth
-              letterSpacing: '0.5px', // Adjust letter spacing for better readability
-              borderRadius: '5px', // Slightly rounded corners for the background
+              fontSize: '1.2rem',
+              fontWeight: 'bold',
+              color: '#B0E0E6',
+              textShadow: '0px 2px 4px rgba(0, 0, 0, 0.5)',
+              letterSpacing: '0.5px',
+              borderRadius: '5px',
               marginLeft: "200px"
             }}
           >
-            50%
+            {50}%
           </Typography>
         </Box>
         <Box>
@@ -104,7 +100,7 @@ const MintingSection = ({ isMinting, mintProgress, onMint }) => {
                 '&:hover': {
                   background: `linear-gradient(145deg, #836FFF, #30cfd0)`,
                 },
-                animation: `${fadeIn} 1s ease-out 1s forwards`, // Delays the button animation
+                // animation: `${fadeIn} 1s ease-out 1s forwards`,
               }}
             >
               <Typography>Mint</Typography>

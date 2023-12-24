@@ -36,7 +36,7 @@ const Navbar = ({ name }) => {
               {name}
             </Typography>
             {/* Navigation Links with custom styles and hover effects */}
-            {['Tokens', 'Marketplace', 'Launchpad', 'Bridge'].map((text) => (
+            {['Runes', 'Marketplace', 'Launchpad', 'Bridge','Defi'].map((text) => (
               <Button
                 key={text}
                 color="inherit"
