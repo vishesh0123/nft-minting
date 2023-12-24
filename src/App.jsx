@@ -1,8 +1,8 @@
 import Navbar from "./components/NavBar"
 import MintingSection from "./components/MintingSection"
 import StatusSection from "./components/StatusSection"
-import Footer from "./components/Footer"
 import config from "../config"
+import Holdings from "./components/Holdings"
 
 function App() {
 
@@ -12,9 +12,10 @@ function App() {
       <div style={{ 'display': 'flex', flexDirection: 'row', marginTop: '20px' }}>
         <MintingSection />
         <StatusSection />
-      </div>
 
-      {/* <Footer/> */}
+      </div>
+      <Holdings />
+
     </>
 
   )

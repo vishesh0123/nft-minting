@@ -1,10 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Box } from '@mui/material';
+import config from '../../config';
+import { useContractRead } from 'wagmi'
+import abi from '../abi'
+import { useWeb3Modal } from '@web3modal/wagmi/react'
 
 const CustomCard = () => {
+  const [contractData, setdata] = useState('')
+  
+  const {
+    data,
+    isError,
+    isLoading,
+    isSuccess,
+    refetch: refetchProjects,
+  } = useContractRead({
+    address: config.deployment,
+    abi: abi,
+    functionName: "_inscription",
+    onSuccess(data) {
+      console.log(data);
+    },
+    onerror(error) {
+      console.log(error);
+    },
+  });
+
+  useEffect(() => {
+    refetchProjects?.();
+    setdata(data);
+  }, [isSuccess]);
+
+
   return (
     <Box>
       <Card sx={{
@@ -23,13 +53,13 @@ const CustomCard = () => {
                     0 0 36px 7px  #836FFF,
                     0 0 48px 9px  #836FFF` // Enhanced glow on hover
         },
-        marginTop: '50px',
-        height: '250px',
-        width: '200px'
+        marginTop: '25px',
+        height: '150px',
+        width: '340px'
       }}>
         <CardContent>
-          <Typography>
-            Data
+          <Typography >
+            {contractData}
           </Typography>
         </CardContent>
       </Card>

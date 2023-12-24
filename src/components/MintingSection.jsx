@@ -3,6 +3,7 @@ import { Box, Typography, Button, CircularProgress, LinearProgress, useTheme } f
 import CustomCard from './CustomCard';
 import TokenName from './TokenName';
 import { keyframes } from '@emotion/react';
+import config from '../../config';
 
 // Define keyframe animations
 const fadeIn = keyframes`
@@ -28,7 +29,7 @@ const MintingSection = ({ isMinting, mintProgress, onMint }) => {
       animation: `${fadeIn} 1s ease-out forwards`, // Applies the fade-in animation to the entire section
       'display': 'flex', flexDirection: 'column', justifyContent: 'space-around', alignItems: 'center'
     }}>
-      <TokenName />
+      <TokenName token={config.token} tokendesc={config.tokendesc}/>
       <CustomCard sx={{
         animation: `${fadeInAndRise} 1s ease-out 0.5s forwards`, // Apply the same animation to the card
       }} />
@@ -47,7 +48,19 @@ const MintingSection = ({ isMinting, mintProgress, onMint }) => {
         animation: `${fadeIn} 1s ease-out 0.5s forwards`, // Delays the animation start
       }}>
         <Box sx={{ width: '100%', display: 'flex', justifyContent: 'space-between', gap: 1, flexDirection: 'column' }}>
-          <Typography>POOK &nbsp; FEE: 0.1 MATIC</Typography>
+          <Typography
+            sx={{
+              fontSize: '1.2rem', // Slightly larger text for emphasis
+              fontWeight: 'bold', // Make it bold to stand out more
+              color: '#B0E0E6', // A light shade that should stand out against darker backgrounds
+              textShadow: '0px 2px 4px rgba(0, 0, 0, 0.5)', // Text shadow for depth
+              letterSpacing: '0.5px', // Adjust letter spacing for better readability
+              borderRadius: '5px', // Slightly rounded corners for the background
+            }}
+          >
+            POOK &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FEE: 0.1 MATIC
+          </Typography>
+
           <LinearProgress
             variant="determinate"
             value={50} // Assuming mintProgress is a state variable that updates during minting
@@ -60,8 +73,18 @@ const MintingSection = ({ isMinting, mintProgress, onMint }) => {
               },
             }}
           />
-          <Typography sx={{ position: 'absolute', right: '50%', transform: 'translateX(50%)' }}>
-            {50}%
+          <Typography
+            sx={{
+              fontSize: '1.2rem', // Slightly larger text for emphasis
+              fontWeight: 'bold', // Make it bold to stand out more
+              color: '#B0E0E6', // A light shade that should stand out against darker backgrounds
+              textShadow: '0px 2px 4px rgba(0, 0, 0, 0.5)', // Text shadow for depth
+              letterSpacing: '0.5px', // Adjust letter spacing for better readability
+              borderRadius: '5px', // Slightly rounded corners for the background
+              marginLeft: "200px"
+            }}
+          >
+            50%
           </Typography>
         </Box>
         <Box>
